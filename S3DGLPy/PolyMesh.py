@@ -17,7 +17,7 @@ POINT_SIZE = 7
 def loadTexture(filename):
     try:
         from PIL.Image import open as imgopen
-    except ImportError, err:
+    except ImportError as err:
         from Image import open as imgopen
     im = imgopen(filename)
     try:
@@ -167,7 +167,7 @@ class MeshFace(object):
     #Return the closest point inside this face to P
     def getClosestPoint(self, P):
         #TODO: Finish translating to numpy
-        print "TODO: getClosestPoint()"
+        print ("TODO: getClosestPoint()")
         #return getClosestPoint([v.pos for v in self.getVertices()], P)            
 
 class MeshEdge(object):
@@ -285,7 +285,7 @@ class PolyMesh(object):
         self.components = []
     
     def Clone(self):
-        print "TODO"
+        print ("TODO")
     
     #Return the edge between v1 and v2 if it exists, or
     #return None if an edge has not yet been created 
@@ -326,7 +326,7 @@ class PolyMesh(object):
         if not arePlanar(verts):
             sys.stderr.write("Error: Trying to add mesh face that is not planar\n")
             for v in verts:
-                print v
+                print (v)
             return None
         if not are2DConvex(verts):
             sys.stderr.write("Error: Trying to add mesh face that is not convex\n")
@@ -601,7 +601,7 @@ class PolyMesh(object):
                         else:
                             e = getEdgeInCommon(loop[-1], v)
                             if not e:
-                                print "Warning: Edge not found in common while trying to trace hole boundary"
+                                print ("Warning: Edge not found in common while trying to trace hole boundary")
                                 finished = True
                                 break
                             elif e.numAttachedFaces() == 1:
@@ -609,9 +609,9 @@ class PolyMesh(object):
                                 loop.append(v)
                                 break
                     if not foundNext and not finished:
-                        print "Warning: Unable to close hole"
+                        print ("Warning: Unable to close hole")
                         break
-                print "Found hole of size %i"%len(loop)
+                print ("Found hole of size %i"%len(loop))
                 self.fillHole(loop)
         self.needsDisplayUpdate = True
         self.needsIndexDisplayUpdate = True
@@ -638,7 +638,7 @@ class PolyMesh(object):
     
     def getBBox(self):
         if self.VPos.shape[0] == 0:
-            print "Warning: PolyMesh.getBBox(): Adding bbox but no vertices"
+            print ("Warning: PolyMesh.getBBox(): Adding bbox but no vertices")
             return BBox3D()
         bbox = BBox3D()
         bbox.fromPoints(self.VPos)
@@ -890,7 +890,7 @@ class PolyMesh(object):
         elif suffix == "obj":
             self.loadObjFile(filename)
         else:
-            print "Unsupported file suffix (%s) for loading mesh"%(suffix, filename)
+            print ("Unsupported file suffix (%s) for loading mesh"%(suffix, filename))
         self.needsDisplayUpdate = True
         self.needsIndexDisplayUpdate = True
     
@@ -903,7 +903,7 @@ class PolyMesh(object):
         elif suffix == "ply":
             self.savePlyFile(filename, verbose)
         else:
-            print "Unsupported file suffix (%s) for saving mesh %s"%(suffix, filename)        
+            print ("Unsupported file suffix (%s) for saving mesh %s"%(suffix, filename) )
     
     def loadOffFile(self, filename):
         fin = open(filename, 'r')
@@ -1029,7 +1029,7 @@ class PolyMesh(object):
             fout.write("\n")
         fout.close()
         if verbose:
-            print "Saved file to %s"%filename
+            print ("Saved file to %s"%filename)
 
     def savePlyFile(self, filename, verbose = False, outputColors = True, output255 = True):
         nV = len(self.vertices)
@@ -1059,7 +1059,7 @@ class PolyMesh(object):
             fout.write("\n")
         fout.close()
         if verbose:
-            print "Saved file to %s"%filename
+            print ("Saved file to %s"%filename)
         
     def loadObjFile(self, filename):
         #TODO: Right now vertex normals, face normals, and texture coordinates are ignored
@@ -1100,7 +1100,7 @@ class PolyMesh(object):
             fout.write("\n")
         fout.close()
         if verbose:
-            print "Saved file to %s"%filename
+            print ("Saved file to %s"%filename)
 
     #############################################################
     ####                     RENDERING                      #####
@@ -1301,7 +1301,7 @@ class PolyMesh(object):
         if self.IndexDisplayList != -1: #Deallocate previous display list
             glDeleteLists(self.IndexDisplayList, 1)
         self.IndexDisplayList = glGenLists(1)
-        print "Updating index display list"
+        print ("Updating index display list")
         glNewList(self.IndexDisplayList, GL_COMPILE)
         glDisable(GL_LIGHTING)
         N = len(self.vertices)
@@ -1397,7 +1397,7 @@ def loadOffFileExternal(filename):
                 if len(fields) > 2:
                     fields[1:4] = [int(field) for field in fields]
                     [nVertices, nFaces, nEdges] = fields[1:4]  
-                    print "nVertices = %i, nFaces = %i"%(nVertices, nFaces)
+                    print ("nVertices = %i, nFaces = %i"%(nVertices, nFaces))
                     #Pre-allocate vertex arrays    
                     VPos = np.zeros((nVertices, 3)) 
                     VColors = np.zeros((nVertices, 3))

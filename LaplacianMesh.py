@@ -232,7 +232,7 @@ def getLaplacianSpectrum(mesh, K):
 #Inputs: mesh (polygon mesh object), K (number of eigenvalues/eigenvectors)
 #Returns: Nothing (should update mesh.VPos)
 def doLowpassFiltering(mesh, K):
-    print "TODO"
+    print ("TODO")
     #TODO: Finish this
     
 #Purpose: Given a mesh, to simulate heat flow by projecting initial conditions
@@ -350,4 +350,4 @@ def getTexCoords(mesh, quadIdx):
     return U
 
 if __name__ == '__main__':
-    print "TODO"
+    print ("TODO")

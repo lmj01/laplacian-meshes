@@ -413,9 +413,9 @@ def PointsEqual(A, B):
 if __name__ == '__main__':
     tri = np.zeros((3, 3))
     tri[:, 0:2] = np.random.randn(3, 2)
-    print tri
+    print (tri)
     c = getTriCircumcenter(tri)
-    print c
+    print (c)
     plt.scatter(tri[:, 0], tri[:, 1], 20, 'b')
     plt.hold(True)
     for k in range(3):
@@ -424,13 +424,13 @@ if __name__ == '__main__':
     plt.scatter(c[0], c[1], 40, 'r')
     dR = tri - c
     R = np.sqrt(np.sum(dR**2, 1))
-    print R
+    print (R)
     tsine = np.linspace(0, 2*np.pi, 100)
     plt.plot(c[0] + R[0]*np.cos(tsine), c[1] + R[0]*np.sin(tsine), 'b')
     plt.show()
 
 if __name__ == '__main__2':
-    print "LINE INTERSECTION TEST"
+    print ("LINE INTERSECTION TEST")
     P0 = np.array([-2.5, 0, -2.5])
     V0 = np.array([-0, -0, -1])
     P1 = np.array([-2.5, -2.5, 0])
@@ -438,9 +438,9 @@ if __name__ == '__main__2':
     line1 = Line3D(P0, V0)
     line2 = Line3D(P1, V1)
     intersection = line1.intersectOtherLine(line2)
-    print intersection
+    print (intersection)
     
-    print "AXIS ROTATION TEST"
+    print ("AXIS ROTATION TEST")
     np.random.seed(100)
     [R, S, V] = np.linalg.svd(np.random.randn(3, 3))
     PointRot = np.array([0, 0, 0])
@@ -451,15 +451,15 @@ if __name__ == '__main__2':
     AxisRot = R.dot(AxisRot)
     PRot2 = rotateAroundAxis(PointRot, AxisRot, 0.5, P)
     PRot2 = (R.T).dot(PRot2)
-    print "PRot1 = ", PRot1
-    print "PRot2 = ", PRot2
+    print ("PRot1 = ", PRot1)
+    print ("PRot2 = ", PRot2)
     
     P = np.array([1, 0, 0])
     P = rotateAroundAxis(np.array([0, 0, 0]), np.array([0, 0, 1]), np.pi/4, np.array([1, 0, 0]))
-    print P
+    print (P)
     
     
-    print "AXIS ROTATION + LINE SEGMENT INTERSECTION TEST"
+    print ("AXIS ROTATION + LINE SEGMENT INTERSECTION TEST")
     P0 = np.array([1, 4, 0])
     P1 = np.array([5, 2, 0])
     P2 = np.array([2, 0, 0])
@@ -471,21 +471,21 @@ if __name__ == '__main__2':
     P1 = rotateAroundAxis(PointRot, AxisRot, Angle, P1)
     P2 = rotateAroundAxis(PointRot, AxisRot, Angle, P2)
     P3 = rotateAroundAxis(PointRot, AxisRot, Angle, P3)
-    print "P0 = ",P0
-    print "P1 = ",P1
-    print "P2 = ",P2
-    print "P3 = ",P3
+    print ("P0 = ",P0)
+    print ("P1 = ",P1)
+    print ("P2 = ",P2)
+    print ("P3 = ",P3)
     V0 = P1 - P0
     V1 = P3 - P2
     line1 = Line3D(P0, V0)
     line2 = Line3D(P2, V1)
     intersection = line1.intersectOtherLine(line2)
     intersection = rotateAroundAxis(PointRot, AxisRot, -Angle, intersection)
-    print intersection
+    print (intersection)
     
-    print "CONVEXITY TEST"
+    print ("CONVEXITY TEST")
     P = Plane3D(np.array([1, 1, 1]), np.array([1, 2, 3]))
-    print P
+    print (P)
     angle = 30
     angle = angle*3.141/180.0
     (cosA, sinA) = [math.cos(angle), math.sin(angle)]
@@ -496,11 +496,11 @@ if __name__ == '__main__2':
     for i in range(verts.shape[0]):
         verts[i, :] = rotateAroundAxis(np.array([1, 1, 0]), np.array([1, 0, 0]), angle, verts[i, :])
     for v in verts:
-        print v
-    print are2DConvex(verts)
+        print (v)
+    print (are2DConvex(verts))
     
-    print "BBOX Test"
+    print ("BBOX Test")
     b = BBox3D(np.array([[1, 2, 3], [1, 2, 3]]))
     b.addPoint(np.array([0, 0, 0]))
     b.addPoint([-1, 5, -10])
-    print b
+    print (b)

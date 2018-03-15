@@ -223,7 +223,7 @@ class MeshViewerCanvas(BasicMeshCanvas):
         self.Refresh()
     
     def doFlattening(self, evt):
-        print self.laplacianSelections
+        print (self.laplacianSelections)
         doFlattening(self.mesh, self.laplacianSelections)
         self.mesh.needsDisplayUpdate = True
         self.mesh.updateIndexDisplayList()
@@ -235,7 +235,7 @@ class MeshViewerCanvas(BasicMeshCanvas):
         self.mesh.VTexCoords = U
         if self.mesh.texID == -1:
             self.mesh.texID = loadTexture("texture.png")
-            print "Loaded texture: ", self.mesh.texID
+            print ("Loaded texture: ", self.mesh.texID)
         self.useTexture = True
         self.parent.useTextureCheckbox.SetValue(True)
         self.mesh.needsDisplayUpdate = True
@@ -263,7 +263,7 @@ class MeshViewerCanvas(BasicMeshCanvas):
         for k in range(3):
             self.mesh.VColors[self.mesh.VColors[:, k] < 0.0, k] = 0
             self.mesh.VColors[self.mesh.VColors[:, k] > 1.0 , k] = 1.0
-        print self.mesh.VColors
+        print (self.mesh.VColors)
         self.mesh.needsDisplayUpdate = True
         self.Refresh()
     
@@ -354,7 +354,7 @@ class MeshViewerCanvas(BasicMeshCanvas):
                 [R, G, B, A] = [int(pixel.encode("hex")[i*2:(i+1)*2], 16) for i in range(4)]
                 idx = extractFromRGBA(R, G, B, 0) - 1
                 if idx >= 0 and idx < len(self.mesh.vertices):
-                    print idx
+                    print( idx)
                     if idx in self.laplacianConstraints:
                         #De-select if it's already selected
                         self.laplaceCurrentIdx = -1
@@ -486,7 +486,7 @@ class MeshViewerFrame(wx.Frame):
         
         self.size = size
         self.pos = pos
-        print "MeshViewerFrameSize = %s, pos = %s"%(self.size, self.pos)
+        print ("MeshViewerFrameSize = %s, pos = %s"%(self.size, self.pos))
         self.glcanvas = MeshViewerCanvas(self)
         
         #####File menu
@@ -623,14 +623,14 @@ class MeshViewerFrame(wx.Frame):
             filename = dlg.GetFilename()
             dirname = dlg.GetDirectory()
             filepath = os.path.join(dirname, filename)
-            print dirname
+            print (dirname)
             self.glcanvas.mesh = PolyMesh()
-            print "Loading mesh %s..."%filename
+            print ("Loading mesh %s..."%filename)
             self.glcanvas.mesh.loadFile(filepath)
             self.glcanvas.meshCentroid = self.glcanvas.mesh.getCentroid()
             self.glcanvas.meshPrincipalAxes = self.glcanvas.mesh.getPrincipalAxes()
-            print "Finished loading mesh"
-            print self.glcanvas.mesh
+            print ("Finished loading mesh")
+            print (self.glcanvas.mesh)
             self.glcanvas.initMeshBBox()
             self.glcanvas.clearAllSelections()
             self.glcanvas.Refresh()

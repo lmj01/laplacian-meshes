@@ -62,22 +62,22 @@ class BasicMeshCanvas(glcanvas.GLCanvas):
         
         self.GLinitialized = False
         #GL-related events
-        wx.EVT_ERASE_BACKGROUND(self, self.processEraseBackgroundEvent)
-        wx.EVT_SIZE(self, self.processSizeEvent)
-        wx.EVT_PAINT(self, self.processPaintEvent)
+        self.Bind(wx.EVT_ERASE_BACKGROUND, self.processEraseBackgroundEvent)
+        self.Bind(wx.EVT_SIZE, self.processSizeEvent)
+        self.Bind(wx.EVT_PAINT, self.processPaintEvent)
         #Mouse Events
-        wx.EVT_LEFT_DOWN(self, self.MouseDown)
-        wx.EVT_LEFT_UP(self, self.MouseUp)
-        wx.EVT_RIGHT_DOWN(self, self.MouseDown)
-        wx.EVT_RIGHT_UP(self, self.MouseUp)
-        wx.EVT_MIDDLE_DOWN(self, self.MouseDown)
-        wx.EVT_MIDDLE_UP(self, self.MouseUp)
-        wx.EVT_MOTION(self, self.MouseMotion)
+        self.Bind(wx.EVT_LEFT_DOWN, self.MouseDown)
+        self.Bind(wx.EVT_LEFT_UP, self.MouseUp)
+        self.Bind(wx.EVT_RIGHT_DOWN, self.MouseDown)
+        self.Bind(wx.EVT_RIGHT_UP, self.MouseUp)
+        self.Bind(wx.EVT_MIDDLE_DOWN, self.MouseDown)
+        self.Bind(wx.EVT_MIDDLE_UP, self.MouseUp)
+        self.Bind(wx.EVT_MOTION, self.MouseMotion)
     
     def initMeshBBox(self):
         if self.mesh:
             self.bbox = self.mesh.getBBox()
-            print "Mesh BBox: %s\n"%self.bbox
+            print ("Mesh BBox: %s\n"%self.bbox)
             self.camera.centerOnBBox(self.bbox, theta = -math.pi/2, phi = math.pi/2)
         
     def viewFromFront(self, evt):
